@@ -14,8 +14,9 @@ Convert and paste the clipboard text into a 6-digit Unicode escape sequence
 
 # Extension Settings
 
-`encodeAndPaste.prefix`: <string>set unicode prefix(default: \\)
-`encodeAndPaste.escapeOnlyMultiByte`: <bool>Whether to escape only multi-byte characters(default: false)
+`encodeAndPaste.prefix` \<string\> : set unicode prefix(default: "\\")
+
+`encodeAndPaste.escapeOnlyMultiByte` \<bool\> : Whether to escape only multi-byte characters(default: false)
 
 
 # Known Issues
