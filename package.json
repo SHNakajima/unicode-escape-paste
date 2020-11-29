@@ -5,7 +5,7 @@
 	"repository": "https://github.com/SHNakajima/unicode-escape-paste",
 	"license": "MIT",
 	"description": "Convert and paste the clipboard text into a 6-digit Unicode escape sequence",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"engines": {
 		"vscode": "^1.51.0"
 	},

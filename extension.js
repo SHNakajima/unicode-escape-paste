@@ -25,10 +25,7 @@ function activate(context) {
     "unicode-escape-paste.paste",
     function () {
       // The code you place here will be executed every time your command is executed
-
-      paster.paste();
-
-      // Display a message box to the user
+			paster.paste();
     }
   );
 
@@ -59,20 +56,19 @@ class Paster {
 
   generateEncodedText(content) {
     var _this = this;
-    var formattedContent = this.unicodeEscape(content);
+		var formattedContent = this.unicodeEscape(content);
     var prefix = vscode.workspace
-      .getConfiguration("encodeAndPaste")
-      .get("prefix");
+		.getConfiguration("encodeAndPaste")
+		.get("prefix");
 
     if (typeof prefix === "string") {
       const prefixString = prefix.replace(/\\/gi, "\\\\");
       formattedContent = formattedContent.replace(/\\/gi, prefixString);
       vscode.window.showInformationMessage(
-        "pasted encorded text!\n\nPrefix: " + prefixString
+        "Original Text:  " + content
       );
-    } else {
       vscode.window.showInformationMessage(
-        "pasted encorded text!\n\nPrefix: \\"
+        "pasted encorded text.  Prefix: " + prefixString
       );
     }
 
@@ -80,6 +76,14 @@ class Paster {
   }
 
   unicodeEscape(str) {
+    var escapeOnlyMultiByte = vscode.workspace
+		.getConfiguration("encodeAndPaste")
+		.get("escapeOnlyMultiByte");
+
+		if(typeof escapeOnlyMultiByte === "undefined") {
+			escapeOnlyMultiByte = false;
+		}
+
     if (!String.prototype.repeat) {
       String.prototype.repeat = function (digit) {
         var result = "";
@@ -90,16 +94,38 @@ class Paster {
       };
     }
 
-    var strs = str.split(""),
-      hex,
-      result = "";
+    var strs = str.split("");
+		var charCode;
+		var hex;
+		var result = "";
+		const maxCharCode = 255;
 
-    for (var i = 0, len = strs.length; i < len; i++) {
-      hex = strs[i].charCodeAt(0).toString(16);
-      result += "\\u" + "0".repeat(Math.abs(hex.length - 4)) + hex;
-    }
+		if (escapeOnlyMultiByte) {
+			for (var i = 0, len = strs.length; i < len; i++) {
+				charCode = strs[i].charCodeAt(0);
+				if(charCode < maxCharCode) {
+					result += strs[i];
+					continue;
+				}
+				hex = charCode.toString(16);
+				result += "\\u" + "0".repeat(Math.abs(hex.length - 4)) + hex;
+			}
+			result = this.escapeSpecialChars(result);
+		} else {
+			for (var i = 0, len = strs.length; i < len; i++) {
+				hex = strs[i].charCodeAt(0).toString(16);
+				result += "\\u" + "0".repeat(Math.abs(hex.length - 4)) + hex;
+			}
+		}
     return result;
-  }
+	}
+
+	escapeSpecialChars(str) {
+    return str
+			.replace(/\n/g, "\\r\\n")
+			.replace(/"/g, "\\\"")
+			.replace(/\//g, "\\\/");
+	}
 
   writeToEditor(content) {
     const editor = vscode.window.activeTextEditor;
