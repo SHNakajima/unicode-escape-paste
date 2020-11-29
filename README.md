@@ -4,7 +4,7 @@
 
 Convert and paste the clipboard text into a 6-digit Unicode escape sequence
 
-
+![preview](./preview.gif "preview")
 
 
 # Requirements
