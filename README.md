@@ -6,6 +6,7 @@ Convert and paste the clipboard text into a 6-digit Unicode escape sequence
 
 
 
+
 # Requirements
 
 `"vscode": "^1.51.0"`
@@ -14,6 +15,8 @@ Convert and paste the clipboard text into a 6-digit Unicode escape sequence
 # Extension Settings
 
 `encodeAndPaste.prefix`: <string>set unicode prefix(default: \\)
+`encodeAndPaste.escapeOnlyMultiByte`: <bool>Whether to escape only multi-byte characters(default: false)
+
 
 # Known Issues
 
@@ -25,6 +28,8 @@ Initial release.
 
 ## 1.0.1
 Stabilization by replacing with javascript
+## 1.0.2
+Added option `encodeAndPaste.escapeOnlyMultiByte`
 
 -----------------------------------------------------------------------------------------------------------
 
