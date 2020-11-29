@@ -1,8 +1,10 @@
-# encode-and-paste README
+# unicode-escape-paste README
 
 # Features
 
 Convert and paste the clipboard text into a 6-digit Unicode escape sequence
+
+
 
 # Requirements
 
