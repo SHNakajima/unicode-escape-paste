@@ -5,7 +5,9 @@ All notable changes to the "unicode-escape-paste" extension will be documented i
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## 1.0.0
-- Initial release
+Initial release
 
 ## 1.0.1
-- Stabilization by replacing with javascript
+Stabilization by replacing with javascript
+## 1.0.2
+Added option `encodeAndPaste.escapeOnlyMultiByte`
